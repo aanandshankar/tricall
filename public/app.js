@@ -197,14 +197,16 @@ function connectSocket() {
 function createPeerEntry(peerId) {
   const pc = new RTCPeerConnection(ICE_CONFIG);
 
+  // Register peer entry FIRST so updateGrid() and ontrack see it immediately
+  peers[peerId] = { pc, tileEl: null };
+
   // Add our local tracks
   if (localStream) {
     localStream.getTracks().forEach(track => pc.addTrack(track, localStream));
   }
 
-  // Receive remote stream
+  // Receive remote stream — peers[peerId] is guaranteed to exist now
   pc.ontrack = ({ streams: [stream] }) => {
-    if (!peers[peerId]) return;
     showRemoteStream(peerId, stream);
   };
 
@@ -224,8 +226,9 @@ function createPeerEntry(peerId) {
     }
   };
 
+  // Create tile AFTER peer entry is registered
   const tileEl = createRemoteTile(peerId);
-  peers[peerId] = { pc, tileEl };
+  peers[peerId].tileEl = tileEl;
   return pc;
 }
 
@@ -292,7 +295,8 @@ function removeRemoteTile(peerId) {
 
 function updateGrid() {
   const grid  = document.getElementById('videoGrid');
-  const count = 1 + Object.keys(peers).length;
+  // Count actual tiles in the DOM — more reliable than peers{} object timing
+  const count = grid.querySelectorAll('.video-tile').length;
   grid.className = 'video-grid p' + Math.min(count, 3);
   document.getElementById('pCount').textContent = count;
 }
