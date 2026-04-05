@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TricallMeet — Free Video Calls</title>
+  <meta name="description" content="Start a free group video call instantly. No signup. Just share the link and join." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="landing-page">
+
+  <!-- Header -->
+  <header class="landing-header">
+    <a class="brand" href="/">
+      <span class="brand-text">SignBridge</span>
+    </a>
+    <button class="header-btn" onclick="createRoom()">New meeting</button>
+  </header>
+
+  <!-- Hero -->
+  <section class="landing-hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Video calls, simple and free.<br />Share a link. Start talking.</h1>
+      <p class="hero-sub">
+        Create a room in one click, share the link, and start talking.
+        No account required — powered by WebRTC for low-latency, peer-to-peer calls.
+      </p>
+      <div class="hero-actions">
+        <button class="btn-primary" id="newMeetingBtn" onclick="createRoom()">
+          📹 &nbsp;New meeting
+        </button>
+        <button class="btn-outline" id="joinMeetingBtn" onclick="joinRoom()">
+          🔗 &nbsp;Join with code
+        </button>
+      </div>
+    </div>
+
+    <!-- Decorative mini grid -->
+    <div class="hero-illustration">
+      <div class="mini-grid">
+        <div class="mini-tile">
+          🧑‍💻
+          <span class="mini-tile-label">You</span>
+        </div>
+        <div class="mini-tile">
+          👩‍💼
+          <span class="mini-tile-label">Participant 2</span>
+        </div>
+        <div class="mini-tile">
+          🧑
+          <span class="mini-tile-label">Participant</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function createRoom() {
+      const roomId = Math.random().toString(36).slice(2, 6) +
+                     '-' + Math.random().toString(36).slice(2, 6) +
+                     '-' + Math.random().toString(36).slice(2, 6);
+      window.location.href = '/room/' + roomId;
+    }
+
+    function joinRoom() {
+      const code = prompt('Paste the meeting code or full link:');
+      if (!code) return;
+      // Accept full link or just the room ID
+      const match = code.match(/\/room\/([a-z0-9\-]+)/i);
+      const roomId = match ? match[1] : code.trim();
+      if (roomId) window.location.href = '/room/' + roomId;
+    }
+  </script>
+</body>
+</html>

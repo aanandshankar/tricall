@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TricallMeet — In Call</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body class="room-page">
+
+  <!-- ── Permission Screen (shown first) ─────────────────────────────────── -->
+  <div id="permissionScreen" class="permission-screen">
+    <div class="permission-card">
+      <div class="permission-icon">📷</div>
+      <h2>Ready to join?</h2>
+      <p>TricallMeet needs access to your camera and microphone so others can see and hear you.</p>
+      <div id="permError" class="perm-error hidden">
+        Camera/microphone access was denied. You can still join with audio only, or check your browser settings and reload.
+      </div>
+      <div class="perm-btn-row">
+        <button class="btn-perm-allow" id="allowCamBtn" onclick="requestMedia(true)">
+          Allow camera & mic
+        </button>
+        <button class="btn-perm-audio" id="audioOnlyBtn" onclick="requestMedia(false)">
+          Audio only
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Error Overlay (room full) ────────────────────────────────────────── -->
+  <div id="errorOverlay" class="error-overlay hidden">
+    <div class="error-card">
+      <div class="error-icon">🚫</div>
+      <h2>This call is full</h2>
+      <p>There are already 3 participants. Please try again later or start a new meeting.</p>
+      <button class="btn-primary" onclick="window.location.href='/'">New meeting</button>
+    </div>
+  </div>
+
+  <!-- ── Toast ────────────────────────────────────────────────────────────── -->
+  <div id="toast" class="toast" role="alert"></div>
+
+  <!-- ── Room Header ───────────────────────────────────────────────────────── -->
+  <header class="room-header">
+    <div class="brand-compact">
+      <span class="brand-text">SignBridge</span>
+    </div>
+
+    <div class="room-meta">
+      <div id="connStatus" class="conn-pill connecting">
+        <span class="conn-dot"></span>
+        <span id="connText">Connecting…</span>
+      </div>
+      <div class="p-count-badge">
+        👥 <span id="pCount">1</span>
+      </div>
+    </div>
+
+    <button class="btn-header-share" onclick="copyRoomLink()">
+      🔗 Share link
+    </button>
+  </header>
+
+  <!-- ── Video Grid ────────────────────────────────────────────────────────── -->
+  <main class="video-grid p1" id="videoGrid">
+    <div class="video-tile local-tile" id="localTile">
+      <!-- Avatar shown when cam is off -->
+      <div class="avatar-bg" id="localAvatar">
+        <div class="avatar-circle" id="localAvatarCircle">You</div>
+      </div>
+      <video id="localVideo" autoplay muted playsinline></video>
+      <div class="tile-label">You (presentation)</div>
+      <div class="tile-mic-status" id="localMicStatus">🎙️</div>
+    </div>
+  </main>
+
+  <!-- ── Controls Bar ──────────────────────────────────────────────────────── -->
+  <footer class="controls-bar">
+    <button id="micBtn" class="ctrl-btn" onclick="toggleMic()" title="Mute / Unmute">
+      <span class="ctrl-icon" id="micIcon">🎙️</span>
+      <span class="ctrl-label" id="micLabel">Mute</span>
+    </button>
+
+    <button id="camBtn" class="ctrl-btn" onclick="toggleCam()" title="Turn off / on camera">
+      <span class="ctrl-icon" id="camIcon">📷</span>
+      <span class="ctrl-label" id="camLabel">Camera</span>
+    </button>
+
+    <button id="hangupBtn" class="ctrl-btn hangup" onclick="hangUp()" title="Leave call">
+      <span class="ctrl-icon">📵</span>
+    </button>
+
+    <button id="shareBtn" class="ctrl-btn share" onclick="copyRoomLink()" title="Copy invite link">
+      <span class="ctrl-icon">🔗</span>
+      <span class="ctrl-label">Invite</span>
+    </button>
+  </footer>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>

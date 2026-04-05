@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 50" fill="none">
+
+  <!-- ── ARCH / ARMS (beneath the hands) ──────────────────────────────────── -->
+
+  <!-- Left arm going down: Google Blue -->
+  <path d="M18,30 C14,36 10,42 6,46"
+        stroke="#4285F4" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- Right arm going down: Google Red -->
+  <path d="M52,30 C56,36 60,42 64,46"
+        stroke="#EA4335" stroke-width="4.5" stroke-linecap="round"/>
+
+  <!-- Arch bottom left: Google Yellow -->
+  <path d="M6,46 C16,52 28,50 35,47"
+        stroke="#FBBC05" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Arch bottom right: Google Green -->
+  <path d="M64,46 C54,52 42,50 35,47"
+        stroke="#34A853" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- ── LEFT HAND (Google Blue) ────────────────────────────────────────────── -->
+
+  <!-- Little finger -->
+  <rect x="10" y="5"   width="3.5" height="13" rx="1.75" fill="#4285F4"/>
+  <!-- Ring finger -->
+  <rect x="14.5" y="3" width="3.5" height="15" rx="1.75" fill="#4285F4"/>
+  <!-- Middle finger -->
+  <rect x="19"   y="2" width="3.5" height="16" rx="1.75" fill="#4285F4"/>
+
+  <!-- Palm (rounded rect connects fingers to arm) -->
+  <rect x="9" y="16" width="16" height="16" rx="5" fill="#4285F4"/>
+
+  <!-- OK ring: white hole + blue fill centre (thumb + index touching) -->
+  <circle cx="27" cy="19" r="5.5" stroke="#4285F4" stroke-width="3" fill="white"/>
+  <circle cx="27" cy="19" r="2"   fill="#4285F4"/>
+
+  <!-- Thumb body connecting palm to ring -->
+  <path d="M24,22 C23,24 23,26 25,27" stroke="#4285F4" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- ── RIGHT HAND (Google Red) ────────────────────────────────────────────── -->
+
+  <!-- Little finger (mirrored) -->
+  <rect x="56.5" y="5"   width="3.5" height="13" rx="1.75" fill="#EA4335"/>
+  <!-- Ring finger -->
+  <rect x="52"   y="3"   width="3.5" height="15" rx="1.75" fill="#EA4335"/>
+  <!-- Middle finger -->
+  <rect x="47.5" y="2"   width="3.5" height="16" rx="1.75" fill="#EA4335"/>
+
+  <!-- Palm -->
+  <rect x="45" y="16" width="16" height="16" rx="5" fill="#EA4335"/>
+
+  <!-- OK ring (mirrored) -->
+  <circle cx="43" cy="19" r="5.5" stroke="#EA4335" stroke-width="3" fill="white"/>
+  <circle cx="43" cy="19" r="2"   fill="#EA4335"/>
+
+  <!-- Thumb connecting -->
+  <path d="M46,22 C47,24 47,26 45,27" stroke="#EA4335" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- ── TEXT ───────────────────────────────────────────────────────────────── -->
+  <text x="84" y="34"
+        font-family="'Inter','Segoe UI',Arial,sans-serif"
+        font-size="22" font-weight="700" letter-spacing="-0.4"
+        fill="none">
+    <tspan fill="#1a1a4e">Sign</tspan><tspan fill="#5b4fcf">Bridge</tspan>
+  </text>
+
+</svg>
