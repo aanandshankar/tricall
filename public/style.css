@@ -123,7 +123,50 @@ html, body {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+  align-items: center;
 }
+
+.join-box { position: relative; display: flex; }
+
+.join-input-row {
+  display: flex;
+  align-items: center;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: box-shadow 0.2s;
+}
+.join-input-row:focus-within {
+  box-shadow: 0 0 0 2px rgba(26,115,232,0.3);
+  border-color: var(--blue);
+}
+
+.join-input {
+  border: none;
+  outline: none;
+  padding: 11px 14px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: #202124;
+  width: 220px;
+  background: #fff;
+}
+.join-input::placeholder { color: #9aa0a6; }
+
+.btn-join {
+  padding: 11px 18px;
+  border: none;
+  border-left: 1px solid #dadce0;
+  background: #fff;
+  color: var(--blue);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.btn-join:hover { background: #f0f4ff; }
 
 .btn-primary {
   display: inline-flex;
@@ -361,12 +404,27 @@ html, body {
   background: var(--bg);
   overflow: hidden;
   height: 100%;
+  min-height: 0;      /* crucial: lets grid child shrink inside parent grid row */
+  box-sizing: border-box;
 }
 
-.video-grid.p1 { grid-template-columns: 1fr; grid-template-rows: 1fr; }
-.video-grid.p2 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
-.video-grid.p3 { grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; }
-.video-grid.p3 .local-tile { grid-column: 1 / -1; }
+/* 1 person: full screen */
+.video-grid.p1 {
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+}
+
+/* 2 people: side by side */
+.video-grid.p2 {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+
+/* 3 people: equal third columns in one row */
+.video-grid.p3 {
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+}
 
 .video-tile {
   position: relative;
@@ -374,6 +432,8 @@ html, body {
   overflow: hidden;
   background: var(--bg-tile);
   animation: tile-in 0.3s ease;
+  min-height: 0;
+  min-width: 0;
 }
 
 @keyframes tile-in {

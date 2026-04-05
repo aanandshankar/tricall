@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TricallMeet — Free Video Calls</title>
+  <title>SignBridge — Free Video Calls</title>
   <meta name="description" content="Start a free group video call instantly. No signup. Just share the link and join." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -31,9 +31,24 @@
         <button class="btn-primary" id="newMeetingBtn" onclick="createRoom()">
           📹 &nbsp;New meeting
         </button>
-        <button class="btn-outline" id="joinMeetingBtn" onclick="joinRoom()">
-          🔗 &nbsp;Join with code
-        </button>
+
+        <!-- Join with code — expands inline on click -->
+        <div class="join-box" id="joinBox">
+          <button class="btn-outline" id="joinMeetingBtn" onclick="expandJoin()">
+            🔗 &nbsp;Join with code
+          </button>
+          <div class="join-input-row hidden" id="joinInputRow">
+            <input
+              id="joinCodeInput"
+              class="join-input"
+              type="text"
+              placeholder="Enter code or paste link…"
+              onkeydown="if(event.key==='Enter') doJoin()"
+              autocomplete="off"
+            />
+            <button class="btn-join" onclick="doJoin()">Join →</button>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -64,14 +79,31 @@
       window.location.href = '/room/' + roomId;
     }
 
-    function joinRoom() {
-      const code = prompt('Paste the meeting code or full link:');
+    function expandJoin() {
+      const btn = document.getElementById('joinMeetingBtn');
+      const row = document.getElementById('joinInputRow');
+      btn.classList.add('hidden');
+      row.classList.remove('hidden');
+      document.getElementById('joinCodeInput').focus();
+    }
+
+    function doJoin() {
+      const code = document.getElementById('joinCodeInput').value.trim();
       if (!code) return;
-      // Accept full link or just the room ID
       const match = code.match(/\/room\/([a-z0-9\-]+)/i);
-      const roomId = match ? match[1] : code.trim();
+      const roomId = match ? match[1] : code;
       if (roomId) window.location.href = '/room/' + roomId;
     }
+
+    // Click outside → collapse back to button
+    document.addEventListener('click', function(e) {
+      const box = document.getElementById('joinBox');
+      if (!box.contains(e.target)) {
+        document.getElementById('joinMeetingBtn').classList.remove('hidden');
+        document.getElementById('joinInputRow').classList.add('hidden');
+        document.getElementById('joinCodeInput').value = '';
+      }
+    });
   </script>
 </body>
 </html>
